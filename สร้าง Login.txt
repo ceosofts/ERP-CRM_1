@@ -1,0 +1,196 @@
+การสร้าง หน้า Login ใน Laravel สามารถทำได้โดยใช้ฟังก์ชันพื้นฐานหรือใช้ฟีเจอร์ Authentication ที่ Laravel มีให้พร้อมใช้ เช่น Laravel Breeze, Laravel UI, หรือ Jetstream แต่ในที่นี้จะอธิบายการสร้างหน้า Login แบบพื้นฐาน เพื่อให้คุณเข้าใจขั้นตอนอย่างละเอียด:
+
+โครงสร้างที่ต้องทำ
+Route: กำหนดเส้นทางสำหรับหน้า Login
+Controller: สร้างฟังก์ชันสำหรับประมวลผลการ Login
+View: ออกแบบหน้าจอ Login
+Validation: ตรวจสอบความถูกต้องของข้อมูลที่ผู้ใช้กรอก
+Session: เก็บสถานะผู้ใช้เมื่อ Login สำเร็จ
+
+ขั้นตอนการสร้างหน้า Login
+1. กำหนด Route
+  เปิดไฟล์ routes/web.php
+  เพิ่ม Route สำหรับหน้า Login:
+  php
+  Copy
+  Edit
+  Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+  Route::post('/login', [AuthController::class, 'login']);
+  Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+2. สร้าง Controller
+สร้าง Controller ชื่อ AuthController:
+bash
+Copy
+Edit
+php artisan make:controller AuthController
+เปิดไฟล์ app/Http/Controllers/AuthController.php
+เพิ่มโค้ดดังนี้:
+php
+Copy
+Edit
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class AuthController extends Controller
+{
+    // แสดงฟอร์ม Login
+    public function showLoginForm()
+    {
+        return view('auth.login'); // ชี้ไปที่ View ชื่อ 'auth/login.blade.php'
+    }
+
+    // ประมวลผลการ Login
+    public function login(Request $request)
+    {
+        // ตรวจสอบข้อมูลที่กรอก
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // พยายามเข้าสู่ระบบ
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate(); // ป้องกัน CSRF
+            return redirect()->intended('/dashboard'); // เปลี่ยนไปหน้าหลัง Login
+        }
+
+        // หากล้มเหลว
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+
+    // ออกจากระบบ
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
+}
+
+3. สร้าง View
+สร้างโฟลเดอร์ resources/views/auth
+สร้างไฟล์ login.blade.php:
+bash
+Copy
+Edit
+touch resources/views/auth/login.blade.php
+เปิดไฟล์ login.blade.php และเพิ่มโค้ดดังนี้:
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+            <button type="submit">Login</button>
+        </div>
+    </form>
+</body>
+</html>
+
+4. เพิ่มการ Authentication ใน User Model
+Laravel ใช้ Model User สำหรับการจัดการผู้ใช้
+ตรวจสอบว่าฟีเจอร์ Authenticatable ถูกใช้ใน Model User:
+ไฟล์: app/Models/User.php
+php
+Copy
+Edit
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+}
+
+5. ตั้งค่าหน้า Dashboard
+สร้าง Route สำหรับหน้า Dashboard:
+
+php
+Copy
+Edit
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');
+สร้าง View สำหรับหน้า Dashboard:
+
+ไฟล์: resources/views/dashboard.blade.php
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ Auth::user()->name }}</h1>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
+
+6. ทดสอบการทำงาน
+รันเซิร์ฟเวอร์:
+bash
+Copy
+Edit
+php artisan serve
+เปิดเบราว์เซอร์และเข้าถึง:
+หน้า Login: http://127.0.0.1:8000/login
+หาก Login สำเร็จ จะถูกเปลี่ยนเส้นทางไปยัง Dashboard
+สรุป
+กำหนด Route สำหรับการแสดงผลและประมวลผลการ Login
+สร้าง Controller เพื่อจัดการการ Login/Logout
+ออกแบบ View สำหรับหน้า Login และ Dashboard
+ใช้ Middleware auth เพื่อป้องกันการเข้าถึงหน้า Dashboard โดยไม่ได้รับอนุญาต
