@@ -219,6 +219,19 @@ Psy Shell v0.12.7 (PHP 8.3.16 — cli) by Justin Hileman
 
 (END)
 
+ตรวจสอบการตั้งค่าใน .env
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/mnt/c/Users/facad/Desktop/Developer/ERP-CRM_1/ceosofts/database/database.sqlite
+
+คุณสามารถหาตำแหน่งไฟล์ที่ถูกต้องได้ด้วยคำสั่ง: Terminal >>> wsl 
+>>> realpath database/database.sqlite
+
+หลังจากแก้ไข .env แล้ว ให้รีเฟรชการตั้งค่าของ Laravel:
+>>> php artisan config:clear
+>>> php artisan cache:clear
+
+
 //////////////////////////////เสร็จการสร้างฐานข้อมูล////////////////////////////////
 
 4. การพัฒนาโปรเจกต์
