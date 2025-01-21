@@ -1,4 +1,7 @@
+ขั้นตอนการทำงาน
 
+
+//////////////////////////////  ระบบพื้นฐาน  ////////////////////////////////   
 ### **สรุปขั้นตอนการติดตั้งและตั้งค่าระบบ Laravel**
 
 ---
@@ -136,6 +139,8 @@
 
    ```
 
+//////////////////////////////  ระบบพื้นฐาน  ////////////////////////////////   
+//////////////////////////////  การสร้างฐานข้อมูล  ////////////////////////////////
 3. การตั้งค่าฐานข้อมูล
   3.1 แก้ไขไฟล์ .env
     เปิดไฟล์ .env และกำหนดค่าฐานข้อมูล เช่น:
@@ -191,7 +196,7 @@
     เพิ่มข้อมูลตัวอย่าง (Seeder): หากคุณต้องการเพิ่มข้อมูลตัวอย่างในฐานข้อมูล:
     >>> php artisan db:seed
 
-    ใช้งานฐานข้อมูลผ่าน Tinker: ใช้ Laravel Tinker เพื่อทดสอบการดึงข้อมูลจากตาราง: เข้า SQLite
+    ใช้งานฐานข้อมูลผ่าน Tinker: ใช้ Laravel Tinker เพื่อทดสอบการดึงข้อมูลจากตาราง: at Terminal
 
     >>> php artisan tinker
     >>> \App\Models\User::all();
@@ -232,7 +237,58 @@ DB_DATABASE=/mnt/c/Users/facad/Desktop/Developer/ERP-CRM_1/ceosofts/database/dat
 >>> php artisan cache:clear
 
 
-//////////////////////////////เสร็จการสร้างฐานข้อมูล////////////////////////////////
+ตรวจสอบการเชื่อมต่อฐานข้อมูล at Terminal
+>>> php artisan tinker
+>>> DB::table('users')->get();
+
+สร้างข้อมูลตัวอย่าง (Seeder)
+>>> php artisan make:seeder UsersTableSeeder
+
+//////////////////////////////  การสร้างฐานข้อมูล  ////////////////////////////////
+//////////////////////////////  Authentication  ////////////////////////////////
+
+ตรวจสอบระบบการสมัครสมาชิกและการเข้าสู่ระบบ
+ติดตั้งแพ็กเกจ Breeze:
+
+>>> composer require laravel/breeze --dev
+
+ติดตั้งระบบ Authentication:
+
+>>> php artisan breeze:install
+
+ติดตั้ง dependencies ของ Frontend:
+
+>>> npm install && npm run dev
+
+รัน migrations เพื่อสร้างตารางสำหรับระบบ Authentication
+
+>>> php artisan migrate
+
+ติดตั้ง Laravel UI (ทางเลือก)  หากคุณต้องการใช้ระบบ Authentication แบบดั้งเดิม (เช่น Bootstrap):
+
+>>> composer require laravel/ui
+
+ติดตั้ง scaffolding สำหรับ Authentication:
+
+>>> php artisan ui bootstrap --auth 
+
+ติดตั้ง dependencies ของ Frontend
+
+>>> npm install && npm run dev
+
+รัน migrations
+
+>>> php artisan migrate
+
+เรียกใช้เซิร์ฟเวอร์
+
+>>> php artisan serve
+
+test ไปที่:
+หน้า เข้าสู่ระบบ: http://127.0.0.1:8000/login
+หน้า สมัครสมาชิก: http://127.0.0.1:8000/register
+
+////////////////////////////// Authentication  ////////////////////////////////
 
 4. การพัฒนาโปรเจกต์
   4.1 สร้าง Controller และ Route
