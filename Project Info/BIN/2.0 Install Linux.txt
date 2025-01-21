@@ -8,7 +8,7 @@
   Copy
   Edit
 
-  >>> wsl --install
+  >>> wsl --install >>>ok
 
   คำสั่งนี้จะติดตั้ง WSL พร้อม Ubuntu โดยอัตโนมัติ
   รีสตาร์ทเครื่องและเปิด Ubuntu จาก Start Menu
@@ -30,7 +30,7 @@
   Copy
   Edit
 
-  sudo apt update && sudo apt upgrade -y
+  >>> sudo apt update && sudo apt upgrade -y
 
   2.2 การติดตั้ง PHP
   เพิ่ม PHP Repository:
@@ -38,37 +38,47 @@
   bash
   Copy
   Edit
+
   sudo apt install software-properties-common -y
   sudo add-apt-repository ppa:ondrej/php -y
   sudo apt update
+
   ติดตั้ง PHP และ Extensions ที่ Laravel ต้องการ:
   
   bash
   Copy
   Edit
+
   sudo apt install php8.1 php8.1-cli php8.1-common php8.1-bcmath php8.1-mbstring php8.1-xml php8.1-curl php8.1-mysql php8.1-sqlite3 php8.1-zip -y
+  
   ตรวจสอบเวอร์ชัน PHP:
   
   bash
   Copy
   Edit
-  php -v
+
+  >>>php -v
 
   2.3 การติดตั้ง Composer
   ดาวน์โหลด Composer:
   bash
   Copy
   Edit
+
   curl -sS https://getcomposer.org/installer | php
+
   ย้าย Composer ไปยัง /usr/local/bin เพื่อให้เรียกใช้ได้ทั่วระบบ:
   bash
   Copy
   Edit
+
   sudo mv composer.phar /usr/local/bin/composer
+
   ตรวจสอบเวอร์ชัน Composer:
   bash
   Copy
   Edit
+
   composer --version
 
   2.4 การติดตั้ง PHP Extensions เพิ่มเติม
@@ -78,6 +88,7 @@
   bash
   Copy
   Edit
+
   sudo apt install php8.1-gd php8.1-imagick -y
 
 3. การติดตั้ง Laravel
