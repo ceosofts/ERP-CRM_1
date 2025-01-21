@@ -224,6 +224,11 @@ Psy Shell v0.12.7 (PHP 8.3.16 — cli) by Justin Hileman
 
 (END)
 
+         ทดลองระบบ register
+         email test1@example.com
+         password 12345678
+
+
 ตรวจสอบการตั้งค่าใน .env
 
 DB_CONNECTION=sqlite
@@ -287,6 +292,25 @@ DB_DATABASE=/mnt/c/Users/facad/Desktop/Developer/ERP-CRM_1/ceosofts/database/dat
 test ไปที่:
 หน้า เข้าสู่ระบบ: http://127.0.0.1:8000/login
 หน้า สมัครสมาชิก: http://127.0.0.1:8000/register
+
+
+เพิ่มการจัดการบทบาทและสิทธิ์ (Roles & Permissions)
+
+>>> composer require spatie/laravel-permission
+
+***note 
+1.ตอนนี้สามารถเข้า http://127.0.0.1:8000/ โดยยังเป็นของ Laravel อยู่
+2.สามารถเข้า http://127.0.0.1:8000/login >>> http://127.0.0.1:8000/home
+2.สามารถเข้า http://127.0.0.1:8000/register  >>> http://127.0.0.1:8000/home
+3.สามารถ logout ได้ 
+4.ยังไม่มีหน้า http://127.0.0.1:8000/dashboard
+5.ระบบ ลืม password ใช้ได้
+
+
+
+         ทดลองระบบ register
+         email test1@example.com
+         password 12345678
 
 ////////////////////////////// Authentication  ////////////////////////////////
 
