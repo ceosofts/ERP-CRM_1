@@ -2,7 +2,11 @@
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
 // Variables
-@import 'variables';
+// @import 'variables'; >>> ของเดิม
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+// @import 'bootstrap/scss/bootstrap'; >>> ของเดิม
+
+// แก้เป็น:
+@use 'variables';
+@use 'bootstrap/scss/bootstrap';

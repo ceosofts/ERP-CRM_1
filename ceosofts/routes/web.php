@@ -2,6 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Auth; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\DashboardController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\HomeController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\ProfileController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\RoleController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\UserController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\PermissionController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\PermissionRoleController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\RoleUserController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\RolePermissionController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\ProfileUserController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\ProfilePermissionController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\ProfileRoleController;  //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\PermissionUserController; //>>> เพิ่มมาใหม่
+// use App\Http\Controllers\PermissionProfileController; //>>> เพิ่มมาใหม่
+
+
 Route::get('/', function () {
     return view('welcome');
 });
