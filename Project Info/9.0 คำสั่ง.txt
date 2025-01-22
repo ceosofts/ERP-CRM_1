@@ -35,6 +35,10 @@
 
 >>> php artisan serve
 
+อัปเดต Bootstrap
+>>> npm install bootstrap@latest
+
+
 สร้าง Model
 
 >>> php artisan make:model ModelName
