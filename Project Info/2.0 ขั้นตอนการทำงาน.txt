@@ -316,124 +316,92 @@ test ไปที่:
 
 4. การพัฒนาโปรเจกต์
   4.1 สร้าง Controller และ Route
-    สร้าง Controller:
-    bash
-    Copy
-    Edit
 
+    สร้าง Controller:
     >>> php artisan make:controller MyController
 
     เพิ่ม Route ใน routes/web.php:
-    php
-    Copy
-    Edit
-
     >>> Route::get('/example', [MyController::class, 'index']);
 
   4.2 สร้าง View
     สร้างไฟล์ View:
-    bash
-    Copy
-    Edit
-
     >>> touch resources/views/example.blade.php
 
-    เพิ่มเนื้อหาใน View เช่น:
-    html
-    Copy
-    Edit
-
+    เพิ่มเนื้อหาใน View เช่น:html
     <h1>Welcome to My Project</h1>
 
 3. **รันเซิร์ฟเวอร์ Laravel:**
-   ```bash
-
    >>> php artisan serve
 
-   ```
    - เปิดเบราว์เซอร์ที่: `http://127.0.0.1:8000`.
 
----
 
 #### **3. การตั้งค่าฐานข้อมูล**
 1. **แก้ไขไฟล์ `.env`:**
    - ตั้งค่าการเชื่อมต่อฐานข้อมูล:
-     ```env
+    >>> 
      DB_CONNECTION=mysql
      DB_HOST=127.0.0.1
      DB_PORT=3306
      DB_DATABASE=laravel_db
      DB_USERNAME=root
      DB_PASSWORD=your_password
-     ```
+    >>> 
 
 2. **สร้างฐานข้อมูล (MySQL):**
-   ```bash
+    >>> 
    sudo mysql -u root -p
    CREATE DATABASE laravel_db;
-   ```
+    >>> 
 
 3. **รัน Migration:**
-   ```bash
+    >>> 
    php artisan migrate
-   ```
-
----
+    >>> 
 
 #### **4. การตรวจสอบระบบ**
 1. **เช็คสถานะ PHP และ Composer:**
-   ```bash
+    >>> 
    php -v
    composer --version
-   ```
+    >>> 
 
 2. **ตรวจสอบ Key และ Cache:**
-   ```bash
+    >>> 
    php artisan env
    php artisan config:clear
    php artisan cache:clear
-   ```
+    >>> 
 
 3. **ตรวจสอบฐานข้อมูล:**
-   ```bash
-   php artisan migrate:status
-   ```
-
----
+   >>> php artisan migrate:status
 
 #### **5. การพัฒนาโปรเจกต์**
 1. **สร้าง Controller:**
-   ```bash
-   php artisan make:controller ExampleController
-   ```
+   >>> php artisan make:controller ExampleController
+
 
 2. **เพิ่ม Route ทดสอบใน `routes/web.php`:**
-   ```php
+
    Route::get('/test', function () {
        return 'Laravel is working!';
    });
-   ```
 
 3. **สร้าง View ทดสอบ:**
-   ```bash
-   touch resources/views/example.blade.php
-   ```
+   >>> touch resources/views/example.blade.php
+
    เพิ่มเนื้อหาใน View:
    ```html
    <h1>Welcome to Laravel</h1>
-   ```
+
 
 4. **ตรวจสอบในเบราว์เซอร์:**
    - URL: `http://127.0.0.1:8000/test`.
 
----
-
 #### **6. การจัดการปัญหา**
 1. **ลบไฟล์และโฟลเดอร์ที่ติดขัด:**
-   ```bash
-   rm -rf vendor composer.lock
-   composer install
-   ```
+   >>> rm -rf vendor composer.lock
+   >>> composer install
 
 2. **ตรวจสอบสิทธิ์โฟลเดอร์:**
    - ตรวจสอบและตั้งค่า **Full Control** บนโฟลเดอร์โปรเจกต์.
@@ -441,19 +409,11 @@ test ไปที่:
 3. **ปิดโปรแกรมที่ล็อคไฟล์:**
    - ปิด Windows Search Indexer และ Antivirus ชั่วคราว.
 
----
-
 #### **7. การใช้งาน Laravel อย่างต่อเนื่อง**
 - หากต้องการสร้างโปรเจกต์ใหม่:
-  ```bash
-  composer create-project laravel/laravel new_project
-  ```
+  >>> composer create-project laravel/laravel new_project
+
 - ตั้งค่าโครงสร้างโปรเจกต์ตาม `.env` และใช้คำสั่ง:
-  ```bash
-  php artisan migrate
-  php artisan serve
-  ```
+  >>> php artisan migrate
+  >>> php artisan serve
 
----
-
-**สรุป:** คู่มือนี้ครอบคลุมการติดตั้ง Laravel ตั้งแต่พื้นฐานจนถึงการตรวจสอบระบบและพัฒนา หากต้องการปรับแต่งเพิ่มเติม สามารถแจ้งมาได้ครับ 😊
