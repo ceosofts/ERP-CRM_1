@@ -18,6 +18,12 @@ use Illuminate\Support\Facades\Auth; //>>> เพิ่มมาใหม่
 // use App\Http\Controllers\PermissionUserController; //>>> เพิ่มมาใหม่
 // use App\Http\Controllers\PermissionProfileController; //>>> เพิ่มมาใหม่
 
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +32,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('customers', CustomerController::class);
+Route::resource('products', ProductController::class);
+Route::resource('orders', OrderController::class);
+Route::resource('orders', OrderItemController::class);
