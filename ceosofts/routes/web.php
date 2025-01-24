@@ -32,7 +32,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 Route::resource('customers', CustomerController::class);
 Route::resource('products', ProductController::class);
 Route::resource('orders', OrderController::class);
-Route::resource('orders', OrderItemController::class);
+
+// Resource ย่อย (Nested Resource) สำหรับ Order Items
+Route::resource('orders.order-items', OrderItemController::class);

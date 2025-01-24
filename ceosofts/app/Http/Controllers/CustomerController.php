@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer; // ใช้ Model Customer สำหรับการจัดการข้อมูลในฐานข้อมูล
+use App\Http\Requests\StoreCustomerRequest;
+use App\Http\Requests\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -11,9 +13,16 @@ class CustomerController extends Controller
      * Display a listing of the resource.
      * ฟังก์ชันนี้ดึงข้อมูลลูกค้าทั้งหมดจากฐานข้อมูล และส่งไปยัง View `customers.index`
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all(); // ดึงข้อมูลลูกค้าทั้งหมด
+        $query = Customer::query();
+
+        if ($request->has('search')) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->search . '%');
+        }
+
+        $customers = $query->paginate(10); // ดึงข้อมูลลูกค้าพร้อมแบ่งหน้า
         return view('customers.index', compact('customers')); // ส่งข้อมูลไปยัง View
     }
 
@@ -30,19 +39,10 @@ class CustomerController extends Controller
      * Store a newly created resource in storage.
      * ฟังก์ชันนี้บันทึกข้อมูลลูกค้าใหม่ลงในฐานข้อมูลหลังจากการตรวจสอบข้อมูล (Validation)
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
-        // ตรวจสอบข้อมูลจากฟอร์ม
-        $validated = $request->validate([
-            'name' => 'required|string|max:255', // ชื่อจำเป็นและต้องเป็น string
-            'email' => 'required|email|unique:customers', // อีเมลต้องไม่ซ้ำ
-            'phone' => 'nullable|string|max:15', // เบอร์โทรศัพท์เป็นตัวเลือก
-            'address' => 'nullable|string', // ที่อยู่เป็นตัวเลือก
-            'taxid' => 'nullable|string|max:13', // เลขประจำตัวผู้เสียภาษีเป็นตัวเลือก
-        ]);
-
         // บันทึกข้อมูลที่ผ่านการตรวจสอบลงฐานข้อมูล
-        Customer::create($validated);
+        Customer::create($request->validated());
 
         // Redirect ไปยังหน้ารายการลูกค้าพร้อมข้อความสำเร็จ
         return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
@@ -72,19 +72,10 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      * ฟังก์ชันนี้อัปเดตข้อมูลลูกค้าในฐานข้อมูลหลังจากการตรวจสอบข้อมูล (Validation)
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCustomerRequest $request, string $id)
     {
-        // ตรวจสอบข้อมูลจากฟอร์ม
-        $validated = $request->validate([
-            'name' => 'required|string|max:255', // ชื่อจำเป็น
-            'email' => 'required|email|unique:customers,email,' . $id, // อีเมลต้องไม่ซ้ำ ยกเว้นของตัวเอง
-            'phone' => 'nullable|string|max:15', // เบอร์โทรศัพท์เป็นตัวเลือก
-            'address' => 'nullable|string', // ที่อยู่เป็นตัวเลือก
-            'taxid' => 'nullable|string|max:13', // เลขประจำตัวผู้เสียภาษีเป็นตัวเลือก
-        ]);
-
         $customer = Customer::findOrFail($id); // ดึงข้อมูลลูกค้าด้วย ID
-        $customer->update($validated); // อัปเดตข้อมูลที่ผ่านการตรวจสอบ
+        $customer->update($request->validated()); // อัปเดตข้อมูลที่ผ่านการตรวจสอบ
 
         // Redirect ไปยังหน้ารายการลูกค้าพร้อมข้อความสำเร็จ
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
