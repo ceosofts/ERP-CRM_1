@@ -9,13 +9,18 @@
 เริ่มเซิร์ฟเวอร์ท้องถิ่น >>> จะเข้า home ได้ แต่เข้าหน้าอื่นไม่ได้
 >>> php artisan serve
 
+ตรวจสอบว่าได้รันคำสั่งเพื่อคอมไพล์ Assets
+>>> npm install
+
 รันคำสั่ง Build
 >>> npm run build
 
 ใช้โหมด Development >>> จะเข้า เข้าหน้าอื่นได้
 >>> npm run dev
 
-
+เคลียร์ Cache หลังการแก้ไข:
+>>> php artisan config:clear
+>>> php artisan route:clear
 
 
 

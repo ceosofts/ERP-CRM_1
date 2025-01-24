@@ -1,28 +1,35 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
 
-use Illuminate\Support\Facades\Auth; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\DashboardController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\HomeController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\ProfileController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\RoleController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\UserController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\PermissionController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\PermissionRoleController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\RoleUserController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\RolePermissionController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\ProfileUserController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\ProfilePermissionController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\ProfileRoleController;  //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\PermissionUserController; //>>> เพิ่มมาใหม่
-// use App\Http\Controllers\PermissionProfileController; //>>> เพิ่มมาใหม่
-
-
+// หน้าแรก
 Route::get('/', function () {
     return view('welcome');
 });
 
+// เส้นทาง Authentication
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route สำหรับ Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+// Resource Routes
+Route::middleware('auth')->group(function () {
+    Route::resource('customers', CustomerController::class);
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderController::class);
+    Route::resource('orders.order-items', OrderItemController::class);
+
+    // Route ชั่วคราวสำหรับ Profile (ถ้าใช้)
+    Route::get('/profile', function () {
+        return 'This is the profile page.';
+    })->name('profile.show');
+});

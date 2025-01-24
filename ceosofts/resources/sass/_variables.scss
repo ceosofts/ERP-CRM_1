@@ -1,3 +1,11 @@
+@use "sass:color"; // นำเข้าโมดูลจัดการสี
+@use 'sass:math';
+
+// Colors
+$primary-color: #3490dc;
+$primary-dark: color.adjust($primary-color, $lightness: -10%); // ใช้ adjust() สำหรับปรับความสว่าง
+$primary-light: color.adjust($primary-color, $lightness: 20%);
+
 // Body
 $body-bg: #f8fafc;
 
