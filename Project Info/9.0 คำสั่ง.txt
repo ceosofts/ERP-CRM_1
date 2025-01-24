@@ -18,7 +18,9 @@
 ใช้โหมด Development >>> จะเข้า เข้าหน้าอื่นได้
 >>> npm run dev
 
-
+เคลียร์ Cache หลังการแก้ไข:
+>>> php artisan config:clear
+>>> php artisan route:clear
 
 
 
