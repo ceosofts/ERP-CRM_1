@@ -27,7 +27,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware('auth')
     ->name('dashboard');
 
-// Resource Routes
+// Resource Routes ถ้าต้องการให้มีการจำกัดการเข้าถึงด้วยการเข้าสู่ระบบ
 Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
     Route::resource('products', ProductController::class);

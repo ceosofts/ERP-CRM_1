@@ -1,259 +1,195 @@
-คำสั่งใช้บ่อย
 
-เข้าตำแหน่งที่ตั้งของโปรเจค
->>> cd ceosofts
-
->>> เปิดใช้ wsl >>> Linux
->>> wsl
-
-เริ่มเซิร์ฟเวอร์ท้องถิ่น >>> จะเข้า home ได้ แต่เข้าหน้าอื่นไม่ได้
->>> php artisan serve
-
-ตรวจสอบว่าได้รันคำสั่งเพื่อคอมไพล์ Assets
->>> npm install
-
-รันคำสั่ง Build
->>> npm run build
-
-ใช้โหมด Development >>> จะเข้า เข้าหน้าอื่นได้
->>> npm run dev
-
-เคลียร์ Cache หลังการแก้ไข:
->>> php artisan config:clear
->>> php artisan route:clear
-
-
-
-
-
-
-คำสั่งที่เกี่ยวกับ Laravel
-เริ่มต้นโปรเจกต์ใหม่
-
->>> laravel new project-name
-
-หรือถ้าไม่ได้ติดตั้ง Laravel Installer:
-
->>> composer create-project --prefer-dist laravel/laravel project-name
-
-เริ่มเซิร์ฟเวอร์ท้องถิ่น
-
->>> php artisan serve
-
-อัปเดต Bootstrap
->>> npm install bootstrap@latest
-
-
-สร้าง Model
-
->>> php artisan make:model ModelName
-
-สร้าง Controller:
-
->>> php artisan make:controller ControllerName
-
-สร้าง Migration:
-
->>> php artisan make:migration create_table_name_table
-
-เรียกใช้ Migration
-
->>> php artisan migrate
-
-Rollback Migration
-
->>> php artisan migrate:rollback
-
-Clear Cache
-ล้าง Config Cache:
-
->>> php artisan config:clear
-
-ล้าง Route Cache:
-
->>> php artisan route:clear
-
-ล้าง View Cache:
-
->>> php artisan view:clear
-
-ล้าง Application Cache:
-
->>> php artisan cache:clear
-
-คอมไพล์ไฟล์ Assets (ผ่าน Laravel Mix)
-
->>> npm run dev
-
-หรือสำหรับ Production:
-
->>> npm run build
-
-คำสั่งที่เกี่ยวกับ Git
-ตรวจสอบสถานะไฟล์
-
->>> git status
-
-เพิ่มไฟล์ทั้งหมด
-
->>> git add .
-
-บันทึก Commit
-
->>> git commit -m "ข้อความ commit"
-
-ดึงข้อมูลจาก Repository
-
->>> git pull origin branch-name
-
-ส่งข้อมูลไปยัง Repository
-
->>> git push origin branch-name
-
-คำสั่งที่เกี่ยวกับ Composer
-ติดตั้ง Dependencies
-
->>> composer install
-
-อัปเดต Dependencies
-
->>> composer update
-
-เพิ่มแพ็คเกจใหม่
-
->>> composer require package/name
-
-ลบแพ็คเกจ
-
->>> composer remove package/name
-
-คำสั่งที่เกี่ยวกับ NPM
-ติดตั้ง Dependencies
-
->>> npm install
-
-อัปเดต Dependencies
-
->>> npm update
-
-ติดตั้งแพ็คเกจใหม่
-
->>> npm install package-name
-
-ลบแพ็คเกจ
-
->>> npm uninstall package-name
-
-คำสั่งที่เกี่ยวกับ WSL
-เปิด VS Code จาก WSL
-
->>> code .
-
-ตรวจสอบเวอร์ชัน PHP, Composer, และ Node.js
-
->>> 
-php -v
-composer -v
-node -v
->>> 
-
-เรียกใช้ Shell
-
-เปิด Bash Shell:
-
->>> wsl
-
-เปิด Shell WSL พร้อม Project Directory:
-
-
->>> wsl cd /path/to/project
-
-การตั้งค่า SQLite กับ Laravel
-แก้ไขไฟล์ .env เพื่อใช้ SQLite ใน Laravel, ให้ตั้งค่าการใช้งาน SQLite ในไฟล์ .env:
-
-DB_CONNECTION=sqlite
-DB_DATABASE=/path/to/your_project/database/database.sqlite
-
-หรือถ้าคุณเก็บไฟล์ .sqlite ไว้ในโฟลเดอร์ database ของ Laravel:
-
-DB_CONNECTION=sqlite
-DB_DATABASE=database/database.sqlite
-
-สร้างไฟล์ฐานข้อมูล SQLite ใช้คำสั่งใน WSL เพื่อสร้างไฟล์ฐานข้อมูล SQLite:
-
-touch database/database.sqlite
-
-ตรวจสอบว่า Laravel เชื่อมต่อ SQLite ได้ ใช้ Artisan เพื่อทดสอบการเชื่อมต่อ:
-
-php artisan migrate
-
-คำสั่ง SQLite บน WSL
-เปิด SQLite CLI
-
-sqlite3 database/database.sqlite
-
-แสดงรายการตารางในฐานข้อมูล เมื่ออยู่ใน SQLite CLI:
-
-.tables
-
-ดูโครงสร้างของตาราง
-
-.schema table_name
-
-รันคำสั่ง SQL ตัวอย่าง:
-
-SELECT * FROM table_name;
-
-ออกจาก SQLite CLI
-
-.exit
-
-การใช้งาน Artisan กับ SQLite
-รัน Migration
-
-php artisan migrate
-
-Rollback Migration
-
-php artisan migrate:rollback
-
-สร้าง Seeder
-
-php artisan db:seed
-
-ล้างและตั้งค่าใหม่ ถ้าต้องการรีเซ็ตฐานข้อมูล:
-
-php artisan migrate:fresh --seed
-
-คำสั่ง Composer และ NPM สำหรับ SQLite
-ไม่มีคำสั่งเฉพาะสำหรับ SQLite ใน Composer และ NPM แต่คำสั่งทั่วไปที่ควรใช้ในการตั้งค่าโปรเจกต์ใหม่ ได้แก่:
-
-ติดตั้ง Dependencies Laravel
-
-composer install
-
-ติดตั้ง Dependencies Frontend
-
-npm install
-
-ตัวอย่างโครงสร้างโปรเจกต์ที่ใช้ SQLite
-ตรวจสอบว่าโฟลเดอร์ database มีไฟล์ database.sqlite:
-
-
-database/
-    database.sqlite
-
-ตั้งค่า .env:
-
-DB_CONNECTION=sqlite
-DB_DATABASE=/absolute/path/to/project/database/database.sqlite
-
-//?
-//*
-//todoo: 
-
-
-
-
-
-
+คำสั่งสำหรับ Laravel, SQLite, และการจัดการโปรเจกต์
+
+---
+
+### **1. คำสั่งที่ใช้บ่อย**
+- เข้าตำแหน่งโปรเจกต์:
+  ```bash
+  cd ceosofts
+  ```
+- เปิด WSL:
+  ```bash
+  wsl
+  ```
+- เริ่มเซิร์ฟเวอร์ท้องถิ่น:
+  ```bash
+  php artisan serve
+  ```
+- คอมไพล์ Assets (Development Mode):
+  ```bash
+  npm run dev
+  ```
+- รันคำสั่ง Build (Production Mode):
+  ```bash
+  npm run build
+  ```
+- เคลียร์ Cache:
+  ```bash
+  php artisan config:clear
+  php artisan route:clear
+  php artisan cache:clear
+  php artisan view:clear
+  ```
+
+---
+
+### **2. คำสั่งสำหรับโปรเจกต์ใหม่**
+- สร้างโปรเจกต์ Laravel:
+  ```bash
+  laravel new project-name
+  ```
+  หรือ:
+  ```bash
+  composer create-project --prefer-dist laravel/laravel project-name
+  ```
+- สร้างโครงสร้างพื้นฐาน:
+  ```bash
+  php artisan make:model ModelName -m
+  php artisan make:controller ControllerName --resource
+  php artisan make:migration create_table_name_table
+  ```
+- รัน Migration:
+  ```bash
+  php artisan migrate
+  ```
+- Rollback Migration:
+  ```bash
+  php artisan migrate:rollback
+  ```
+
+---
+
+### **3. คำสั่งจัดการ Dependencies**
+#### **Composer**
+- ติดตั้ง Dependencies:
+  ```bash
+  composer install
+  ```
+- อัปเดต Dependencies:
+  ```bash
+  composer update
+  ```
+- เพิ่มแพ็กเกจใหม่:
+  ```bash
+  composer require package/name
+  ```
+- ลบแพ็กเกจ:
+  ```bash
+  composer remove package/name
+  ```
+
+#### **NPM**
+- ติดตั้ง Dependencies:
+  ```bash
+  npm install
+  ```
+- อัปเดต Dependencies:
+  ```bash
+  npm update
+  ```
+- เพิ่มแพ็กเกจใหม่:
+  ```bash
+  npm install package-name
+  ```
+- ลบแพ็กเกจ:
+  ```bash
+  npm uninstall package-name
+  ```
+
+---
+
+### **4. คำสั่งจัดการ Git**
+- ตรวจสอบสถานะไฟล์:
+  ```bash
+  git status
+  ```
+- เพิ่มไฟล์ทั้งหมด:
+  ```bash
+  git add .
+  ```
+- บันทึก Commit:
+  ```bash
+  git commit -m "ข้อความ commit"
+  ```
+- ดึงข้อมูลจาก Repository:
+  ```bash
+  git pull origin branch-name
+  ```
+- ส่งข้อมูลไปยัง Repository:
+  ```bash
+  git push origin branch-name
+  ```
+
+---
+
+### **5. คำสั่งที่เกี่ยวกับ WSL**
+- เปิด Visual Studio Code:
+  ```bash
+  code .
+  ```
+- ตรวจสอบเวอร์ชัน PHP, Composer, Node.js:
+  ```bash
+  php -v
+  composer -v
+  node -v
+  ```
+
+---
+
+### **6. คำสั่งจัดการ SQLite**
+- สร้างไฟล์ฐานข้อมูล:
+  ```bash
+  touch database/database.sqlite
+  ```
+- เปิด SQLite CLI:
+  ```bash
+  sqlite3 database/database.sqlite
+  ```
+- แสดงตารางทั้งหมดในฐานข้อมูล:
+  ```sql
+  .tables
+  ```
+- ดูโครงสร้างของตาราง:
+  ```sql
+  .schema table_name
+  ```
+- ดูข้อมูลในตาราง:
+  ```sql
+  SELECT * FROM table_name;
+  ```
+- ออกจาก SQLite CLI:
+  ```bash
+  .exit
+  ```
+
+---
+
+### **7. คำสั่งเช็คข้อมูล**
+#### **ผ่าน Laravel Tinker**
+- เริ่ม Tinker:
+  ```bash
+  php artisan tinker
+  ```
+- ดูข้อมูลในตารางทั้งหมด:
+  ```php
+  \App\Models\Product::all();
+  ```
+- ค้นหาข้อมูลตามเงื่อนไข:
+  ```php
+  \App\Models\Product::where('name', 'Product 1')->get();
+  ```
+- นับจำนวนข้อมูล:
+  ```php
+  \App\Models\Product::count();
+  ```
+
+#### **ผ่าน Artisan Commands**
+- เช็คสถานะ Migration:
+  ```bash
+  php artisan migrate:status
+  ```
+- Seed ข้อมูล:
+  ```bash
+  php artisan db:seed --class=SeederClassName
+  ```
