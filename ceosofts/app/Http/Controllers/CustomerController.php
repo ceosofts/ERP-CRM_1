@@ -35,33 +35,18 @@ class CustomerController extends Controller
         return view('customers.create'); // แสดงหน้า View สำหรับสร้างลูกค้าใหม่
     }
 
-    /** ยังไม่พร้อมใช้ตอนนี้
+    /**
      * Store a newly created resource in storage.
      * ฟังก์ชันนี้บันทึกข้อมูลลูกค้าใหม่ลงในฐานข้อมูลหลังจากการตรวจสอบข้อมูล (Validation)
      */
-    // public function store(StoreCustomerRequest $request)
-    // {
-    //     // บันทึกข้อมูลที่ผ่านการตรวจสอบลงฐานข้อมูล
-    //     Customer::create($request->validated());
-
-    //     // Redirect ไปยังหน้ารายการลูกค้าพร้อมข้อความสำเร็จ
-    //     return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
-    // }
-
     public function store(StoreCustomerRequest $request)
     {
-        try {
-            // บันทึกข้อมูลที่ผ่านการตรวจสอบลงในฐานข้อมูล
-            Customer::create($request->validated());
+        // บันทึกข้อมูลที่ผ่านการตรวจสอบลงฐานข้อมูล
+        Customer::create($request->validated());
 
-            // Redirect ไปยังหน้ารายการลูกค้าพร้อมข้อความสำเร็จ
-            return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
-        } catch (\Exception $e) {
-            // จัดการข้อผิดพลาดและแสดงข้อความที่เหมาะสม
-            return redirect()->back()->withErrors(['error' => 'Failed to create customer: ' . $e->getMessage()]);
-        }
+        // Redirect ไปยังหน้ารายการลูกค้าพร้อมข้อความสำเร็จ
+        return redirect()->route('customers.index')->with('success', 'Customer created successfully.');
     }
-
 
     /**
      * Display the specified resource.
@@ -96,13 +81,6 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
     }
 
-    // public function update(UpdateCustomerRequest $request, string $id)
-    // {
-    //     $customer = Customer::findOrFail($id); // ดึงข้อมูลลูกค้า
-    //     $customer->update($request->validated()); // ใช้ข้อมูลที่ผ่านการตรวจสอบแล้วอัปเดต
-
-    //     return redirect()->route('customers.index')->with('success', 'Customer updated successfully.');
-    // }
     /**
      * Remove the specified resource from storage.
      * ฟังก์ชันนี้ลบข้อมูลลูกค้าออกจากฐานข้อมูลตาม ID ที่ระบุ
