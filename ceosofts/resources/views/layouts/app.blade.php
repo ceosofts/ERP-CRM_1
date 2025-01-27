@@ -34,6 +34,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                        <!-- เพิ่มลิงก์ Home -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                        </li>
                         @auth
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
@@ -72,10 +76,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    {{-- <a class="dropdown-item" href="{{ route('profile.show') }}">
-                                        {{ __('My Profile') }}
-                                    </a> --}}
-                                    <a href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -95,6 +96,13 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- Footer -->
+        <footer class="bg-light text-center py-3 mt-4">
+            <div class="container">
+                <p class="mb-0">&copy; 2025 {{ config('app.name', 'Laravel') }}. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
 
     <!-- Scripts (เพิ่มเติมสำหรับ JS พิเศษในแต่ละหน้า) -->

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
@@ -10,8 +11,13 @@ use App\Http\Controllers\OrderItemController;
 
 // หน้าแรก
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('welcome'); // หน้าสำหรับผู้เยี่ยมชมทั่วไป
+})->name('welcome');
+
+// หน้า Home ถูกเปลี่ยนเส้นทางไปที่ Dashboard (หลังจากเข้าสู่ระบบ)
+Route::get('/home', function () {
+    return redirect()->route('dashboard'); // เปลี่ยนเส้นทางไปที่ Dashboard
+})->middleware('auth')->name('home');
 
 // เส้นทาง Authentication
 Auth::routes();
